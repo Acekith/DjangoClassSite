@@ -1,0 +1,9 @@
+{% if latest_truck_list %}
+    <ul>
+    {% for truck in latest_truck_list %}
+        <li><a href="/website/{{ truck.id }}/">{{ truck.short_description }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No trucks are available.</p>
+{% endif %}
