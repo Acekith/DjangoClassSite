@@ -1,0 +1,9 @@
+
+body {
+  min-height: 200px;
+  padding-top: 70px;
+}
+
+.navbar-default .navbar-nav>.active>a {
+    color: #500000
+}

@@ -1,13 +1,13 @@
 from django.conf.urls import url
 
 from . import views
+
+app_name = 'website'
 urlpatterns = [
     # ex: /website/
-    url(r'^$', views.index, name='index'),
-    # ex: /website/truckslist/
-    url(r'^truckslist/$', views.truckslist, name='trucklist'),
+    url(r'^$', views.IndexView.as_view(), name='index'),
     # ex: /website/5/
-    url(r'^(?P<truck_id>[0-9]+)/$', views.detail, name='detail')
+    url(r'^(?P<pk>[0-9]+)/$', views.TruckDetailView.as_view(), name='detail')
 
 ]
 
