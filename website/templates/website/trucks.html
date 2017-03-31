@@ -1,0 +1,41 @@
+{% extends "site_base.html" %}
+
+{% load account_tags %}
+{% load i18n %}
+{% load bootstrap3 %}
+
+
+{% block body %}
+    <!-- Jumbotron -->
+    <div id="jumbo1" class="jumbotron">
+        <h1 class="text-center">Howdy!</h1> 
+        <p class="text-center">Check out our Trucks</p>
+    </div>
+
+
+    <!-- wrap rest of page in container to center content -->
+    <div class="container content">
+        <hr />
+
+        <!-- three columns below the carousel -->
+        <div class="row">
+            <div class="col-lg-4 col-sm-4">
+                <img class="img-circle center-block" src="/images/PitaPita.jpg" alt="Pita Pit" width="140" height="140">
+                <h2 class="text-center">Pita Pit</h2>
+                <p class="text-center">Healthy pita sandwich truck. They offer everything from the classic Greek specialties (falafel, gyro, souvlaki, hummus) to some non-traditional favorites like the Buffalo Chicken and Dagwood Club</p>
+                <p class="text-center"><a class="btn btn-default" href="#" role="button">View Truck</a></p>
+            </div><!-- /.col-lg-4 -->
+            <div class="col-lg-4 col-sm-4">
+                <img class="img-circle center-block" src="/images/Big_Daddy_Zs.jpg" alt="Big Daddy Z's" width="140" height="140">
+                <h2 class="text-center">Big Daddy Z's</h2>
+                <p class="text-center" class="text center">Proudly Aggie Owned and Operated. They offer Texas food with an Island attitude. They are inspired by flavors from Southeast Asia, The South Pacific, the Caribbean, and the Gulf Coast.</p>
+                <p class="text-center"><a class="btn btn-default" href="#" role="button">View Truck</a></p>
+            </div><!-- /.col-lg-4 -->
+            <div class="col-lg-4 col-sm-4">
+                <img class="img-circle center-block" src="/images/MickeysSlider.jpg" alt="Mickey's Sliders" width="140" height="140">
+                <h2 class="text-center" class="text center" class="text center">Mickey's Sliders</h2>
+                <p class="text-center" class="text center">Mickey's Sliders make the best little burgers on the streets of Texas. To complement this they have superior sliders, fries, and beer. Open for breakfask, lunch and dinner</p>
+                <p class="text-center"><a class="btn btn-default" href="#" role="button">View Truck</a></p>
+            </div><!-- /.col-lg-4 -->
+        </div><!-- /.row -->
+        {% endblock %}

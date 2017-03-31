@@ -1,9 +1,31 @@
-{% if latest_truck_list %}
-    <ul>
-    {% for truck in latest_truck_list %}
-        <li><a href="/website/{{ truck.id }}/">{{ truck.truck_name }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No trucks are available.</p>
-{% endif %}
+{% extends "site_base.html" %}
+
+{% load account_tags %}
+{% load i18n %}
+{% load bootstrap3 %}
+
+
+{% block body %}
+    <!-- Jumbotron -->
+    <div class="container">
+        <h1 class="text-center"><b>Find your Favorite Food Truck</b></h1> 
+        <h3 class="text-center">No service charges! No long queues!</h3>
+        <div class="text-center">
+            <a style="background-color: #500000;" class="btn btn-primary" href="signup.html" role="button">Try it now!</a>
+        </div>
+    </div>
+    <div class="container content" style="padding-top: 50px">
+        <div class="row">
+            <div class="col-sm-4">
+                <img class="center-block" src="/images/magnifyingglass.png" alt="Locate food truck" width="140" height="140">
+            </div><!-- /.col-lg-4 -->
+            <div class="col-sm-4">
+                <img class="center-block" src="/images/cart.png" alt="Order food" width="140" height="140">
+            </div><!-- /.col-lg-4 -->
+            <div class="col-sm-4">
+                <img class="center-block" src="/images/foodtruck.png" alt="Pick up order" width="240" height="140">
+            </div>
+
+        </div><!-- /.row -->
+    </div>
+{% endblock %}

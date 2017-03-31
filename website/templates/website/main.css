@@ -1,0 +1,33 @@
+body {
+    background-image: url(/images/transparentbackground.png);
+    background-repeat: repeat-y;
+    color: #500000;
+    padding-top: 50px; /* 50 px because thats the height of the navbar currently */
+}
+
+/* from trucks.css */
+.jumbotron {
+    color: #500000;
+    background-color: transparent;
+}
+
+#jumbo1 {
+    padding-bottom: 0px;
+    margin-top: 0px;
+}
+
+/* from map.css */
+#mapbody {
+    overflow-y: hidden;
+}
+
+#map {
+    margin: auto;
+}
+hr {
+    border: none;
+    height: 1px;
+    /* Set the hr color */
+    color: #333; /* old IE */
+    background-color: #333; /* Modern Browsers */
+}

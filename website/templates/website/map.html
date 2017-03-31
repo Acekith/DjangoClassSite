@@ -1,0 +1,30 @@
+{% extends "site_base.html" %}
+
+{% load account_tags %}
+{% load i18n %}
+{% load bootstrap3 %}
+
+
+{% block body %}
+        <div id="map" class="" style="width:100%; height:90%">
+        </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+      function initMap() {
+        var College_Station = {lat: 30.615011, lng: -96.342476};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 15,
+          center: College_Station,
+        });
+        var marker = new google.maps.Marker({
+          position: College_Station,
+          map: map
+        });
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxCki7FAZ2rQX30YxzBNE1MPbPsQuAXsA&callback=initMap">
+    </script>
+{% endblock %}
