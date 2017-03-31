@@ -106,9 +106,9 @@
                             <div id="navbar" class="navbar-collapse collapse">
                                 {% if request.user.is_authenticated %}
                                 <ul class="nav navbar-nav">
-                                    <li><a href="map.html">Map</a></li>
-                                    <li><a href="trucks.html">Trucks</a></li>
-                                    <li class="active"><a href="Contact_Us.html">Contact Us</a></li>
+                                    <li><a href="/map/">Map</a></li>
+                                    <li><a href="/trucks/">Trucks</a></li>
+                                    <li class="active"><a href="/contact/">Contact Us</a></li>
                                 </ul>
                                 {% endif %}
                                 {% block account_bar %}{% include "_account_bar.html" %}{% endblock %}

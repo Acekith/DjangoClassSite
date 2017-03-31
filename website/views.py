@@ -7,25 +7,17 @@ from .models import Truck
 
 # Create your views here.
 
-class IndexView(generic.ListView):
-    template_name = 'website/index.html'
-    context_object_name = 'latest_truck_list'
-
-    def get_queryset(self):
-        return Truck.objects.all()
-
-class TruckDetailView(generic.DetailView):
-    model = Truck
-    template_name = 'website/truckdetail.html'
 
 
 
+def index(request):
+    return render(request, 'website/index.html', {})
 
-#def index(request):
-#    latest_truck_list = Truck.objects.all()
-#    context = {'latest_truck_list': latest_truck_list,}
-#    return render(request, 'website/index.html', context)
+def contact(request):
+    return render(request, 'website/Contact_Us.html', {})
 
+def map(request):
+    return render(request, 'website/map.html', {})
 
 #def detail(request, truck_id):
 #    try:
