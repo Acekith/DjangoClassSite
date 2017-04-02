@@ -1,0 +1,14 @@
+
+{% extends "site_base.html" %}
+
+{% load account_tags %}
+{% load i18n %}
+{% load bootstrap3 %}
+
+
+{% block body %}
+<h1>{{object.truck_name}}</h1>
+<p>
+{{object.description}}
+</p>
+{% endblock %}

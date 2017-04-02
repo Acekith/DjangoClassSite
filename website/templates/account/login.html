@@ -7,6 +7,7 @@
 {% block head_title %}{% trans "Log in" %}{% endblock %}
 
 {% block body %}
+<div class="notmap">
     <div class="row">
         <div class="col-md-4">
             <form method="POST" action="{% url "account_login" %}" autocapitalize="off" {% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
@@ -31,6 +32,7 @@
             {% include "account/_login_sidebar.html" %}
         </div>
     </div>
+</div>
 {% endblock %}
 
 {% block scripts %}

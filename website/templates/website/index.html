@@ -3,29 +3,34 @@
 {% load account_tags %}
 {% load i18n %}
 {% load bootstrap3 %}
-
+{% load static %}
 
 {% block body %}
     <!-- Jumbotron -->
-    <div class="container">
-        <h1 class="text-center"><b>Find your Favorite Food Truck</b></h1> 
-        <h3 class="text-center">No service charges! No long queues!</h3>
-        <div class="text-center">
-            <a style="background-color: #500000;" class="btn btn-primary" href="signup.html" role="button">Try it now!</a>
-        </div>
-    </div>
-    <div class="container content" style="padding-top: 50px">
-        <div class="row">
-            <div class="col-sm-4">
-                <img class="center-block" src="/images/magnifyingglass.png" alt="Locate food truck" width="140" height="140">
-            </div><!-- /.col-lg-4 -->
-            <div class="col-sm-4">
-                <img class="center-block" src="/images/cart.png" alt="Order food" width="140" height="140">
-            </div><!-- /.col-lg-4 -->
-            <div class="col-sm-4">
-                <img class="center-block" src="/images/foodtruck.png" alt="Pick up order" width="240" height="140">
-            </div>
+	<div class="notmap">
+		<div class="container">
+			<h1 class="text-center"><b>Find your Favorite Food Truck</b></h1> 
+			<h3 class="text-center">No service charges! No long queues!</h3>
+			<div class="text-center">
+				<a style="background-color: #500000;" class="btn my-btn" href="/account/signup/" role="button">Try it now!</a>
+			</div>
+		</div>
+		<div class="container content" style="padding-top: 50px">
+			<div class="row">
+				<div class="col-sm-4">
+					<img class="center-block" src="{% static "magnifyingglass.png" %}"alt="Locate food truck" width="140" height="140">
+					<h4 id="indextext" class="text-center">Find a food truck</h4>
+				</div><!-- /.col-lg-4 -->
+				<div class="col-sm-4">
+					<img class="center-block" src="{% static "cart.png" %}" alt="Order food" width="140" height="140">
+					<h4 id="indextext" class="text-center">Order your food</h4>
+				</div><!-- /.col-lg-4 -->
+				<div class="col-sm-4">
+					<img class="center-block" src="{% static "foodtruck.png" %}" alt="Pick up order" width="240" height="140">
+					<h4 id="indextext" class="text-center">Pick up your order</h4>
+				</div>
 
-        </div><!-- /.row -->
-    </div>
+			</div><!-- /.row -->
+		</div>
+	</div>
 {% endblock %}

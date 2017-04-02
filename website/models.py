@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-
+from django.urls import reverse
 from django.contrib.auth.models import User
 from django.db import models
 import os
@@ -20,6 +20,9 @@ class Truck(models.Model):
 
     def __str__(self):
         return self.truck_name
+
+    def get_absolute_url(self):
+        return reverse('website:truck-detail', kwargs={'pk': self.pk})
 
 class Menu_item(models.Model):
     truck = models.ForeignKey(Truck)

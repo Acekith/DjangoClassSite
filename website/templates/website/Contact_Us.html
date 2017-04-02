@@ -6,9 +6,16 @@
 
 
 {% block body %}
+    <style>
+    #contactlink {
+        background: #707373;
+        color: #500000;
+    }
+    </style>
+    <div class="notmap">
         <h2 class="text-center">Have a question?</h2>
         <h4 class="text-center">Get in touch!</h4>
-        <form>
+        <form class="center-block" style="max-width: 50%">
             <div class="form-group row">
                 <label for="example-text-input" class="col-2 col-form-label"></label>
                 <input class="form-control" type="text" placeholder="First Name" id="example-text-input">
@@ -31,6 +38,7 @@
                 <input type="text" class="form-control" id="InputRepeatPassword" placeholder="Please type message here.">
                 <small id="passwordhelp" class="form-text text-muted"></small>
             </div>
-            <button type="submit" style="background-color: #500000" class="btn btn-primary btn-block">Sign up</button>
+            <button type="submit" style="background-color: #500000" class="btn my-btn btn-block">Send message</button>
         </form>
+    </div>
 {% endblock %}
