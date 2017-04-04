@@ -7,7 +7,7 @@ import os
 # Create your models here.
 
 def get_image_path(instance, filename):
-    return os.path.join('photos', str(instance.id),filename)
+    return os.path.join('media', str(instance.id),filename)
 
 # http://stackoverflow.com/questions/8189800/django-store-user-image-in-model
 

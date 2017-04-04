@@ -25,7 +25,7 @@ SECRET_KEY = '1r$q40jc%_0j3nx1tw-te*=)%tkfcvpxme!i_cwe5#eahjj5pt'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -126,10 +126,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
-MEDIA_ROOT = 'home/grayson/django_experiments/website/media'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'photos')
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 SITE_ID = 1
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_BROWSER_XSS_FILTER = True
+SESSION_COOKIE_SECURE = True
+ACCOUNT_LOGIN_REDIRECT_URL = '/truck'
+# CSRF_COOKIE_SECURE = True
 # ACCOUNT_SIGNUP_REDIRECT_URL = '/account/signup/'
 # ACCOUNT_LOGIN_REDIRECT_URL = '/account/login/'
 # ACCOUNT_LOGOUT_REDIRECT_URL = '/account/logout'

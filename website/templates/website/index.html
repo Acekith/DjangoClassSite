@@ -4,11 +4,10 @@
 {% load i18n %}
 {% load bootstrap3 %}
 {% load static %}
-
 {% block body %}
     <!-- Jumbotron -->
 	<div class="notmap">
-		<div class="container">
+		<div class="container hidden-xs">
 			<h1 class="text-center"><b>Find your Favorite Food Truck</b></h1> 
 			<h3 class="text-center">No service charges! No long queues!</h3>
 			<div class="text-center">
@@ -18,16 +17,22 @@
 		<div class="container content" style="padding-top: 50px">
 			<div class="row">
 				<div class="col-sm-4">
-					<img class="center-block" src="{% static "magnifyingglass.png" %}"alt="Locate food truck" width="140" height="140">
+					<img id="magnify" class="center-block" src="{% static "magnifyingglass.png" %}"alt="Locate food truck">
 					<h4 id="indextext" class="text-center">Find a food truck</h4>
 				</div><!-- /.col-lg-4 -->
 				<div class="col-sm-4">
-					<img class="center-block" src="{% static "cart.png" %}" alt="Order food" width="140" height="140">
+					<img id="cart" class="center-block" src="{% static "cart.png" %}" alt="Order food">
 					<h4 id="indextext" class="text-center">Order your food</h4>
 				</div><!-- /.col-lg-4 -->
 				<div class="col-sm-4">
-					<img class="center-block" src="{% static "foodtruck.png" %}" alt="Pick up order" width="240" height="140">
+					<img id="truck" class="center-block" src="{% static "foodtruck.png" %}" alt="Pick up order">
 					<h4 id="indextext" class="text-center">Pick up your order</h4>
+				</div>
+				<div class="col-xs-6 visible-xs-block text-center">
+					<a style="background-color: #500000;" class="btn my-btn" href="/account/signup/" role="button">Try it now!</a>
+				</div>
+				<div class="col-xs-6 visible-xs-block text-center">
+					<a style="background-color: #500000;" class="btn my-btn" href="/account/login/" role="button">Sign in</a>
 				</div>
 
 			</div><!-- /.row -->

@@ -32,23 +32,23 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
         <style type="text/css">
             
-            #brandimage {
-                padding-top: 5px;
-            }
             .navbar {
                 background: #500000;
-            }
+            } 
+            .test {
+		display:block;
+                margin-top: 0.3em;
+            } 
             .navbar-default .navbar-brand {
                 color: white;
-                hov
             }
-			.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
-				color: white;
-			}
+		.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
+			color: white;
+		}
             .navbar-default .navbar-nav>li>a {
                 color: white;
                 padding: 30px;
-                font-size: x-large;
+                font-size: 1.5em;
                 min-height: 75px;
             }
             .navbar-fixed-bottom .navbar-collapse, .navbar-fixed-top .navbar-collapse, .navbar-static-top .navbar-collapse {
@@ -82,6 +82,7 @@
             #jumbo1 {
                 padding-bottom: 0px;
                 margin-top: 0px;
+		margin-bottom: 0em;
             }
 
             /* from map.css */
@@ -98,20 +99,61 @@
                 /* Set the hr color */
                 color: #333; /* old IE */
                 background-color: #333; /* Modern Browsers */
-            }
+	    }
             #indextext {
                 font-weight: bold;
             }
-			.my-btn {
-				@include button-variant(white; #500000; #500000);
-				color: white
-			}
-			h1, h2, h3, h4, h5 {
-			font-family: Times, "Times New Roman", Palatino, Bookman, "New Century Schoolbook" !important;
-			}
-			p {
-			font-family: Arial, Helvetica, "Gill Sans", Lucidia, "Helvetica Narrow" !important;
-			}
+	.my-btn {
+		@include button-variant(white; #500000; #500000);
+		color: white
+	}
+	h1, h2, h3, h4, h5 {
+	font-family: Times, "Times New Roman", Palatino, Bookman, "New Century Schoolbook" !important;
+	}
+	p {
+	font-family: Arial, Helvetica, "Gill Sans", Lucidia, "Helvetica Narrow" !important;
+	}
+	#magnify {
+		width: 140px;
+		height: 140px;
+	}
+	#cart {
+		width: 140px;
+		height: 140px;
+	}
+	#truck {
+		width: 240px;
+		height: 140px;
+		margin: auto;
+	}
+	#navtitle {
+		color: white; 
+		vertical-align: middle; 
+		margin: 0;
+		display: inline-block; 
+		font-size: 1.5em;
+	}
+	@media screen and (max-width: 500px) {
+		.notmap {
+			padding: 0px !important;
+		}
+		#magnify {
+			width: 105px !important;
+			height: 105px !important;
+		}
+		#cart {
+			width: 105px !important;
+			height: 105px !important;
+		}
+		#truck {
+			width: 180px !important;
+			height: 105px !important;
+			margin: auto !important;
+		}
+		#brandimage {
+			padding-bottom: 0.3em;
+		}
+	}
         </style>
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -128,15 +170,16 @@
                     <nav class="navbar navbar-default navbar-fixed-top">
                         <div class="container">
                             <div class="navbar-header">
-                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                                <button type="button" class="row navbar-toggle collapsed visible-xs-inline-block" style="margin-top: 1.4em;" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                                     <span class="sr-only">Toggle navigation</span>
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                 </button>
-                                <a href="/">
-                                    <img id="brandimage" src="{% static "truckiefixed.png" %}" alt="Truckie's Trucks" height="70" width="auto">
-                                </a>
+				<div class="test">
+				    <a href="/"><img id="brandimage" src="{% static "truckiefixed.png" %}" alt="Truckie's Trucks" height="70" width="auto"></a>
+				    <h1 id="navtitle">Truckie's Trucks</h1>
+				</div>
                             </div>
                             <div id="navbar" class="navbar-collapse collapse">
                                 {% if request.user.is_authenticated %}
