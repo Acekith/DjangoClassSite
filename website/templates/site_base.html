@@ -184,7 +184,11 @@
                                 </button>
 				<div class="test">
 				    <a href="/"><img id="brandimage" src="{% static "truckiefixed.png" %}" alt="Truckie's Trucks" height="70" width="auto"></a>
-				    <h1 id="navtitle">Truckie's Trucks</h1>
+                                {% if request.user.is_authenticated %}
+				   <a href="/trucks/"><h1 id="navtitle">Truckie's Trucks</h1></a>
+                                {% else %}
+				   <a href="/"><h1 id="navtitle">Truckie's Trucks</h1></a>
+                                {% endif %}
 				</div>
                             </div>
                             <div id="navbar" class="navbar-collapse collapse">

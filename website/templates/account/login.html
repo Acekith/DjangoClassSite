@@ -11,7 +11,7 @@
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <form method="POST" action="{% url "account_login" %}" autocapitalize="off" {% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
-                <legend class="text-center">{% trans "Welcome back! Its good to see you again!" %}</legend>
+                <legend class="text-center">{% trans "Welcome back! It's good to see you again!" %}</legend>
                 {% csrf_token %}
                 {% bootstrap_form form %}
                 {% if redirect_field_value %}
