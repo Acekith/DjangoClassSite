@@ -37,20 +37,15 @@ class Truck(models.Model):
         return reverse('website:truck-detail', kwargs={'pk': self.pk})
 
     def whereami(self):
-        print '******'
         lat = "30.615011"
         lon = "-96.342476"
         now = datetime.datetime.now()
-        print now
-        print self.trucklocation.all()[0].start_time
-        print '******'
         for loc in self.trucklocation.all():
             if loc.day == datetime.datetime.today().weekday():
                 if loc.start_time < datetime.datetime.now().time() < loc.end_time:
                     lat = loc.latitude
                     lon = loc.longitude
         coordinates = "{lat: %s, lng: %s}" %(lat, lon)
-        print coordinates
         return coordinates
 
 
