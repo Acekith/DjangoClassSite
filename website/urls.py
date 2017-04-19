@@ -14,6 +14,13 @@ urlpatterns = [
     url(r'^trucks/(?P<pk>[0-9]+)/$', views.TruckDetailView.as_view(), name='truck-detail'),
     url(r'^trucks/(?P<pk>[0-9]+)/update/$', views.TruckUpdate.as_view(), name='truck-update'),
     url(r'^trucks/(?P<pk>[0-9]+)/delete/$', views.TruckDelete.as_view(), name='truck-delete'),
+
+    url(r'^trucks/(?P<pk>[0-9]+)/menuitems/$', views.MenuItemListView.as_view(), name='truck-menuitem-list'),
+    url(r'^trucks/(?P<pk_truck>[0-9]+)/menuitems/create/$', views.MenuItemCreate.as_view(), name='truck-menuitem-create'),
+    url(r'^trucks/(?P<pk>[0-9]+)/menuitems/(?P<pk_alt>[0-9]+)/delete/$', views.MenuItemDelete.as_view(), name='truck-menuitem-create'),
+
+    url(r'^trucks/(?P<pk>[0-9]+)/Locations/$', views.LocationListView.as_view(), name='truck-location-list'),
+    url(r'^trucks/(?P<pk>[0-9]+)/Locations/create/$', views.LocationCreate.as_view(), name='truck-location-create'),
     # ex/map/
     url(r'^map/$', views.map, name='map'),
     url(r'^contact/$', views.contact, name='contact'),

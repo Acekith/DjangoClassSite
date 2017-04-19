@@ -1,0 +1,38 @@
+
+{% extends "site_base.html" %}
+
+{% load account_tags %}
+{% load i18n %}
+{% load bootstrap3 %}
+
+
+
+{% block body %}
+<!-- Jumbotron -->
+    <style>
+	#trucklink {
+	    background: #707373;
+	    color: #500000;
+	}
+    </style>
+    <div class="container content">
+        <h2> Viewing menu of {{ truck.truck_name }}</h2>
+    </div>
+    <div class="container content">
+        <hr />
+        <div class="row">
+            {% for menu_item in object_list %}
+                {% if truck == menu_item.truck %}
+                <div class="col-lg-12 col-sm-12">
+                    <h2>{{ menu_item.item_name }}</h2>
+                    <p>{{ menu_item.item_description }}</p>
+                    <p>${{ menu_item.item_price  }}</p>
+                </div><!-- /.col-lg-4 -->
+                {% endif %}
+
+            {% empty %}
+                <h2 class"text-center">Content coming soon</h2>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

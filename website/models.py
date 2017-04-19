@@ -21,6 +21,7 @@ DAYS = (
 def get_image_path(instance, filename):
     return os.path.join('media', str(instance.id),filename)
 
+
 # http://stackoverflow.com/questions/8189800/django-store-user-image-in-model
 
 class Truck(models.Model):
@@ -44,9 +45,9 @@ class Truck(models.Model):
                 if loc.start_time < datetime.datetime.now().time() < loc.end_time:
                     lat = loc.latitude
                     lon = loc.longitude
-		    coordinates = "{lat: %s, lng: %s}" %(lat, lon)
-		    return coordinates
-	return
+            coordinates = "{lat: %s, lng: %s}" %(lat, lon)
+            return coordinates
+        return
 
 class Menu_item(models.Model):
     truck = models.ForeignKey(Truck,related_name='menuitems')
