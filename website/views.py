@@ -23,7 +23,9 @@ def contact(request):
     return render(request, 'website/Contact_Us.html', {})
 
 def map(request):
-    return render(request, 'website/map.html', {})
+    trucks = Truck.objects.all()
+    notrucks = all([x.whereami() is None for x in trucks])
+    return render(request, 'website/map.html', {'trucks': trucks, 'notrucks': notrucks})
 
 class TruckDetailView(DetailView):
     model = Truck

@@ -12,25 +12,39 @@
         color: #500000;
     }
     </style>
-        <div id="map" class="" style="width:100%; height:90%">
-        </div>
+<div style="height: 100vh; overflow: hidden;">
+		<div id="map" style="height: calc(100% - 81px)">
+		</div>
+        <script>
+		      var map;
+		      function initMap() {
+			var College_Station = {lat: 30.615011, lng: -96.342476};
+			map = new google.maps.Map(document.getElementById('map'), {
+			  zoom: 14,
+			  center: College_Station,
+			});
+            var infowindow = new google.maps.InfoWindow();
+			{% for truck in trucks %}
+			    {% if truck.whereami %}
+                    CurrentPosition = {{ truck.whereami }};
+                    var marker{{ forloop.counter }} = new google.maps.Marker({
+                      position: CurrentPosition,
+                      map: map
+                    });
+
+                    marker{{ forloop.counter }}.addListener('click', function() {
+                        infowindow.setContent("<h3>{{ truck.truck_name }}</h3><p>{{ truck.short_description }}</p><a style='background-color: #500000;' class='btn my-btn' href='{% url 'website:truck-detail' pk=truck.id %}' role='button'>View Truck</a>")
+                        infowindow.open(map, this);
+                    });
+			    {% endif %}
+			{% endfor %}
+		    }
+		    </script>
+		    <script async defer
+			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxCki7FAZ2rQX30YxzBNE1MPbPsQuAXsA&callback=initMap">
+		    </script>
+</div>
 {% endblock %}
 
 {% block scripts %}
-    <script>
-      function initMap() {
-        var College_Station = {lat: 30.615011, lng: -96.342476};
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 15,
-          center: College_Station,
-        });
-        var marker = new google.maps.Marker({
-          position: College_Station,
-          map: map
-        });
-      }
-    </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxCki7FAZ2rQX30YxzBNE1MPbPsQuAXsA&callback=initMap">
-    </script>
 {% endblock %}

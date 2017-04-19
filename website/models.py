@@ -8,13 +8,13 @@ import datetime
 # Create your models here.
 
 DAYS = (
-        (0, 'Sunday'),
-        (1, 'Monday'),
-        (2, 'Tuesday'),
-        (3, 'Wednesday'),
-        (4, 'Thursday'),
-        (5, 'Friday'),
-        (6, 'Saturday'),
+        (0, 'Monday'),
+        (1, 'Tuesday'),
+        (2, 'Wednesday'),
+        (3, 'Thursday'),
+        (4, 'Friday'),
+        (5, 'Saturday'),
+        (6, 'Sunday'),
 )
 
 
@@ -37,17 +37,16 @@ class Truck(models.Model):
         return reverse('website:truck-detail', kwargs={'pk': self.pk})
 
     def whereami(self):
-        lat = "30.615011"
-        lon = "-96.342476"
         now = datetime.datetime.now()
         for loc in self.trucklocation.all():
+            print loc, loc.day, datetime.datetime.today().weekday()
             if loc.day == datetime.datetime.today().weekday():
                 if loc.start_time < datetime.datetime.now().time() < loc.end_time:
                     lat = loc.latitude
                     lon = loc.longitude
-        coordinates = "{lat: %s, lng: %s}" %(lat, lon)
-        return coordinates
-
+		    coordinates = "{lat: %s, lng: %s}" %(lat, lon)
+		    return coordinates
+	return
 
 class Menu_item(models.Model):
     truck = models.ForeignKey(Truck,related_name='menuitems')
