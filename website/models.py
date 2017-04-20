@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 from django.urls import reverse
+from django.urls import reverse_lazy
 from django.contrib.auth.models import User
 from django.db import models
 import os
@@ -38,15 +39,15 @@ class Truck(models.Model):
         return reverse('website:truck-detail', kwargs={'pk': self.pk})
 
     def whereami(self):
-        now = datetime.datetime.now()
+        #now = datetime.datetime.now()
         for loc in self.trucklocation.all():
-            print loc, loc.day, datetime.datetime.today().weekday()
+            #print loc, loc.day, datetime.datetime.today().weekday()
             if loc.day == datetime.datetime.today().weekday():
                 if loc.start_time < datetime.datetime.now().time() < loc.end_time:
                     lat = loc.latitude
                     lon = loc.longitude
-            coordinates = "{lat: %s, lng: %s}" %(lat, lon)
-            return coordinates
+                    coordinates = "{lat: %s, lng: %s}" %(lat, lon)
+                    return coordinates
         return
 
 class Menu_item(models.Model):
@@ -57,6 +58,9 @@ class Menu_item(models.Model):
 
     def __str__(self):
         return self.item_name
+
+    def get_absolute_url(self):
+        return reverse_lazy('website:truck-menuitem-list', args=[self.truck.id])
 
 class Hours(models.Model):
     truck = models.OneToOneField(Truck, related_name='truckhours')

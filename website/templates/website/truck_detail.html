@@ -36,17 +36,21 @@
                     <div id="map" class="" style="width:100%; height:100%">
                         <script>
                             function initMap() {
-                                
-                                var CurrentPosition = {{ truck.whereami }};
-                                
+                                {% if truck.whereami %}
+                                    var CurrentPosition = {{ truck.whereami }};
+                                {% else %}
+                                var CurrentPosition = {lat: 30.615011, lng: -96.342476};
+                                {% endif  %}
                                 var map = new google.maps.Map(document.getElementById('map'), {
                                     zoom: 15,
                                     center: CurrentPosition,
                                 });
-                                var marker = new google.maps.Marker({
-                                    position: CurrentPosition,
-                                    map: map
-                                });
+                                {% if truck.whereami %}
+                                    var marker = new google.maps.Marker({
+                                        position: CurrentPosition,
+                                        map: map
+                                    });
+                                {% endif  %}
                             }
                         </script>
                         <script async defer

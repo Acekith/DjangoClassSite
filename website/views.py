@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
+from django.http import HttpResponse
 from django.core.urlresolvers import reverse
 from django.urls import reverse_lazy
 from django.views import generic
@@ -52,6 +53,8 @@ class TruckUpdate(UpdateView):
     'truck_picture',
     'short_description',
     'description',]
+    template_name_suffix = '_update_form'
+
 
 class TruckDelete(DeleteView):
     model = Truck
@@ -67,22 +70,69 @@ class MenuItemListView(ListView):
         context = super(MenuItemListView, self).get_context_data(**kwargs)
         # Add in the publisher
         context["truck"]=Truck.objects.get(pk=self.kwargs["pk"])
-        print context
         return context
 
 class MenuItemUpdate(UpdateView):
     model = Menu_item
-    #fields =
+    fields = [
+    'item_name',
+    'item_price',
+    'item_description',]
+
+    template_name_suffix = '_update_form'
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(MenuItemUpdate, self).get_context_data(**kwargs)
+        # Add in the publisher
+        context["truck"]=Truck.objects.get(pk=self.kwargs["pk"])
+        return context
 
 class MenuItemCreate(CreateView):
     model = Menu_item
+    fields = [
+    'item_name',
+    'item_price',
+    'item_description',]
+    #success_url = reverse('website:truck-menuitem-list' pk_truck=truck.id)
 
     def form_valid(self, form):
-        form.instance.truck = Truck.objects.get(pk=self.kwargs['truck_id'])
+        form.instance.truck = Truck.objects.get(pk=self.kwargs['pk_truck'])
         return super(MenuItemCreate, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(MenuItemCreate, self).get_context_data(**kwargs)
+        # Add in the publisher
+        context["truck"]=Truck.objects.get(pk=self.kwargs["pk_truck"])
+        return context
 
 class MenuItemDelete(DeleteView):
     model = Menu_item
+    def success_url(self):
+        return reverse('website:truck-menuitem-list', kwargs={'pk': self.object.truck.id})
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        html = """
+               <html>
+                   <head>
+                       <script>window.onunload = refreshParent; function refreshParent() {
+                               window.opener.location.href=%s;
+                               }
+                       </script>
+                   </head>
+                   <body>
+                   <h1>object deleted successfully</h1>
+                   <button type="button" onclick="window.close()">OK</button>
+                   </body>
+               </html>
+               """ % reverse('website:truck-menuitem-list',
+                              kwargs={'pk': self.object.truck.id
+                                      }
+                              )
+        super(MenuItemDelete, self).post(request, *args, **kwargs)
+        return HttpResponse(html)
 
 #CRUD for Locations
 
@@ -94,7 +144,6 @@ class LocationListView(ListView):
         context = super(LocationListView, self).get_context_data(**kwargs)
         # Add in the publisher
         context["truck"]=Truck.objects.get(pk=self.kwargs["pk"])
-        print context
         return context
 
 class LocationItemUpdate(UpdateView):
@@ -121,7 +170,6 @@ class HoursListView(ListView):
         context = super(HoursListView, self).get_context_data(**kwargs)
         # Add in the publisher
         context["truck"]=Truck.objects.get(pk=self.kwargs["pk"])
-        print context
         return context
 
 class HoursItemUpdate(UpdateView):

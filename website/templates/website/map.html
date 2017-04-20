@@ -18,12 +18,12 @@
         <script>
 		      var map;
 		      function initMap() {
-			var College_Station = {lat: 30.615011, lng: -96.342476};
-			map = new google.maps.Map(document.getElementById('map'), {
-			  zoom: 14,
-			  center: College_Station,
-			});
-            var infowindow = new google.maps.InfoWindow();
+                var College_Station = {lat: 30.615011, lng: -96.342476};
+                var map = new google.maps.Map(document.getElementById('map'), {
+                  zoom: 14,
+                  center: College_Station,
+                });
+                var infowindow = new google.maps.InfoWindow();
 			{% for truck in trucks %}
 			    {% if truck.whereami %}
                     CurrentPosition = {{ truck.whereami }};

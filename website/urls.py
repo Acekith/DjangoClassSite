@@ -17,7 +17,8 @@ urlpatterns = [
 
     url(r'^trucks/(?P<pk>[0-9]+)/menuitems/$', views.MenuItemListView.as_view(), name='truck-menuitem-list'),
     url(r'^trucks/(?P<pk_truck>[0-9]+)/menuitems/create/$', views.MenuItemCreate.as_view(), name='truck-menuitem-create'),
-    url(r'^trucks/(?P<pk>[0-9]+)/menuitems/(?P<pk_alt>[0-9]+)/delete/$', views.MenuItemDelete.as_view(), name='truck-menuitem-create'),
+    url(r'^menuitems/(?P<pk>[0-9]+)/update/$', views.MenuItemUpdate.as_view(), name='truck-menuitem-update'),
+    url(r'^menuitems/(?P<pk>[0-9]+)/delete/$', views.MenuItemDelete.as_view(), name='truck-menuitem-delete'),
 
     url(r'^trucks/(?P<pk>[0-9]+)/Locations/$', views.LocationListView.as_view(), name='truck-location-list'),
     url(r'^trucks/(?P<pk>[0-9]+)/Locations/create/$', views.LocationCreate.as_view(), name='truck-location-create'),

@@ -15,10 +15,30 @@
 	    color: #500000;
 	}
     </style>
-    <div class="container content">
-        <h2> Viewing menu of {{ truck.truck_name }}</h2>
+<div class="container content">
+    <div class="panel panel-default col-lg-3" style="margin-top: 2em;">
+        <div class="panel-heading"><strong>{% trans "Settings" %}</strong></div>
+        <div class="list-group">
+            <a class="list-group-item account-settings" href="{% url "website:truck-update" pk=truck.id %}">
+                {% trans "Edit Truck Information" %}
+            </a>
+            <a class="list-group-item account-password" href="{% url "website:truck-menuitem-list" pk=truck.id %}">
+                {% trans "Edit Menu" %}
+            </a>
+            <a class="list-group-item account-delete" href="{% url "website:truck-delete" pk=truck.id %}">
+                {% trans "Delete Truck" %}
+            </a>
+        </div>
     </div>
-    <div class="container content">
+    <div class="col-lg-9">
+        <div class="row">
+            <div class="col-lg-9">
+                <h2> Viewing menu of {{ truck.truck_name }}</h2>
+            </div>
+            <div class="col-lg-3">
+                <a style="background-color: #500000; margin-top: 1.5em;" class="btn my-btn" href="{% url 'website:truck-menuitem-create' pk_truck=truck.id %}" role="button">Create New Menu Item</a>
+            </div>
+        </div>
         <hr />
         <div class="row">
             {% for menu_item in object_list %}
@@ -27,6 +47,10 @@
                     <h2>{{ menu_item.item_name }}</h2>
                     <p>{{ menu_item.item_description }}</p>
                     <p>${{ menu_item.item_price  }}</p>
+                    <div class="btn-group">
+                        <a style="background-color: #500000;" class="btn my-btn" href="{% url 'website:truck-menuitem-update' pk=menu_item.id %}" role="button">Edit Menu Item</a>
+                        <a style="background-color: #500000;" class="btn my-btn" href="{% url 'website:truck-menuitem-delete' pk=menu_item.id %}" role="button">Delete Menu Item</a>
+                    </div>
                 </div><!-- /.col-lg-4 -->
                 {% endif %}
 
@@ -35,4 +59,5 @@
             {% endfor %}
         </div>
     </div>
+</div>
 {% endblock %}
