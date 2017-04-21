@@ -29,7 +29,9 @@
         </div><!-- /. row -->
         <div class="row">
             <div class="col-lg-7 col-sm-7">
+                {% if truck.truck_picture %}
                 <img class="center-block" src="{{ truck.truck_picture.url }}" alt="{{ truck.truck_name }}" style="max-width: 100%; height:auto; max-height: 350px">
+                {% endif %}
             </div>
             <div class="col-lg-5 col-sm-5">
                 <div style="height: 350px">

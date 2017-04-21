@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'anymail',
 	'account',
 	'bootstrap3',
 ]
@@ -139,3 +140,11 @@ ACCOUNT_LOGIN_REDIRECT_URL = '/truck'
 # ACCOUNT_SIGNUP_REDIRECT_URL = '/account/signup/'
 # ACCOUNT_LOGIN_REDIRECT_URL = '/account/login/'
 # ACCOUNT_LOGOUT_REDIRECT_URL = '/account/logout'
+
+ANYMAIL = {
+    # (exact settings here depend on your ESP...)
+    "MAILGUN_API_KEY": os.environ.get('MAILGUN_API_KEY'),
+    "MAILGUN_SENDER_DOMAIN": 'grayson.hx42.org',
+}
+EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"  # or sendgrid.EmailBackend, or...
+DEFAULT_FROM_EMAIL = "truckiestrucks@grayson.hx42.org"  # if you don't already have this in settings

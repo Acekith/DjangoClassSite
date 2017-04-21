@@ -1,0 +1,7 @@
+Django
+django-anymail
+django-bootstrap-form
+django-bootstrap3
+gunicorn
+Pillow
+pinax-theme-bootstrap

@@ -11,6 +11,8 @@ from django.views.generic.edit import UpdateView
 from django.views.generic.edit import DeleteView
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
+from django.conf import settings
+
 from .models import Truck
 from .models import Menu_item
 from .models import Location
@@ -43,24 +45,23 @@ class TruckCreate(CreateView):
     fields = [
     'truck_name',
     'truck_picture',
-    'truck_owner',
     'short_description',
     'description',]
 
-#    def post(self, request, *args, **kwargs):
-#        if form.is_valid():
-#            newPic = Pic(imgfile = request.FILES['imgfile'])
-#            newPic.save()
-
-
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.truck_owner = self.request.user
+        self.object.save()
+        return super(TruckCreate, self).form_valid(form)
 
     def post(self, request, *args, **kwargs):
         form_class = self.get_form_class()
         form = self.get_form(form_class)
         if form.is_valid():
-            print request, args, kwargs, request.META, request.FILES
-            newPic = request.FILES['truck_picture']
-            default_storage.save(uuid.uuid4().hex, ContentFile(newpic.read()))
+            if 'truck_picture' in request.FILES:
+                newpic = request.FILES['truck_picture']
+                default_storage.save(uuid.uuid4().hex, ContentFile(newpic.read()))
+            return self.form_valid(form)
         else:
             return self.form_invalid(form)
 
@@ -73,10 +74,27 @@ class TruckUpdate(UpdateView):
     'description',]
     template_name_suffix = '_update_form'
 
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.truck_owner = self.request.user
+        self.object.save()
+        return super(TruckUpdate, self).form_valid(form)
+
+    def post(self, request, *args, **kwargs):
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        if form.is_valid():
+            #print request.FILES
+            if 'truck_picture' in request.FILES:
+                newpic = request.FILES['truck_picture']
+                default_storage.save(uuid.uuid4().hex, ContentFile(newpic.read()))
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
 
 class TruckDelete(DeleteView):
     model = Truck
-    success_url = reverse_lazy('truck-list')
+    success_url = reverse_lazy('website:truck-list')
 
 #****************** CRUD for menu items************************
 
