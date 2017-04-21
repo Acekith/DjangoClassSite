@@ -1,4 +1,5 @@
 
+
 {% extends "site_base.html" %}
 
 {% load account_tags %}
@@ -39,29 +40,35 @@
     <div class="col-lg-9">
         <div class="row">
             <div class="col-lg-9">
-                <h2> Viewing menu of {{ truck.truck_name }}</h2>
+                <h2> Viewing operating hours of {{ truck.truck_name }}</h2>
             </div>
             <div class="col-lg-3">
-                <a style="background-color: #500000; margin-top: 1.5em;" class="btn my-btn" href="{% url 'website:truck-menuitem-create' pk_truck=truck.id %}" role="button">Create New Menu Item</a>
+                {% if truck.truckhours %}
+                {% else %}
+                <a style="background-color: #500000; margin-top: 1.5em;" class="btn my-btn" href="{% url 'website:truck-hours-create' pk_truck=truck.id %}" role="button">Create truck hours</a>
+                {% endif %}
             </div>
         </div>
         <hr />
         <div class="row">
-            {% for menu_item in object_list %}
-                {% if truck == menu_item.truck %}
+            {% for hours in object_list %}
+                {% if truck == hours.truck %}
                 <div class="col-lg-12 col-sm-12">
-                    <h2>{{ menu_item.item_name }}</h2>
-                    <p>{{ menu_item.item_description }}</p>
-                    <p>${{ menu_item.item_price  }}</p>
+                    <p>Monday hours: {{ hours.monday }}</p>
+                    <p>Tuesday hours: {{ hours.tuesday }}</p>
+                    <p>Wednesday hours: {{ hours.wednesday }}</p>
+                    <p>Thursday hours: {{ hours.thursday }}</p>
+                    <p>Friday hours: {{ hours.friday }}</p>
+                    <p>Saturday hours: {{ hours.saturday }}</p>
+                    <p>Sunday hours: {{ hours.sunday }}</p>
                     <div class="btn-group">
-                        <a style="background-color: #500000;" class="btn my-btn" href="{% url 'website:truck-menuitem-update' pk=menu_item.id %}" role="button">Edit Menu Item</a>
-                        <a style="background-color: #500000;" class="btn my-btn" href="{% url 'website:truck-menuitem-delete' pk=menu_item.id %}" role="button">Delete Menu Item</a>
+                        <a style="background-color: #500000;" class="btn my-btn" href="{% url 'website:truck-hours-update' pk=hours.id %}" role="button">Edit hours</a>
                     </div>
                 </div><!-- /.col-lg-4 -->
                 {% endif %}
 
             {% empty %}
-            <h2 class"text-center">No menu items stored for {{ truck.truck_name }}</h2>
+            <h2 class"text-center">No operating hours stored for {{ truck.truck_name }}</h2>
             {% endfor %}
         </div>
     </div>

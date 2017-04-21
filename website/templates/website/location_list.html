@@ -1,4 +1,5 @@
 
+
 {% extends "site_base.html" %}
 
 {% load account_tags %}
@@ -39,29 +40,30 @@
     <div class="col-lg-9">
         <div class="row">
             <div class="col-lg-9">
-                <h2> Viewing menu of {{ truck.truck_name }}</h2>
+                <h2> Viewing Locations of {{ truck.truck_name }}</h2>
             </div>
             <div class="col-lg-3">
-                <a style="background-color: #500000; margin-top: 1.5em;" class="btn my-btn" href="{% url 'website:truck-menuitem-create' pk_truck=truck.id %}" role="button">Create New Menu Item</a>
+                <a style="background-color: #500000; margin-top: 1.5em;" class="btn my-btn" href="{% url 'website:truck-location-create' pk_truck=truck.id %}" role="button">Create New Location</a>
             </div>
         </div>
         <hr />
         <div class="row">
-            {% for menu_item in object_list %}
-                {% if truck == menu_item.truck %}
+            {% for location in object_list %}
+                {% if truck == location.truck %}
                 <div class="col-lg-12 col-sm-12">
-                    <h2>{{ menu_item.item_name }}</h2>
-                    <p>{{ menu_item.item_description }}</p>
-                    <p>${{ menu_item.item_price  }}</p>
+                    <h3>Location: {{ location.latitude }}, {{ location.longitude }}</h3>
+                    <p>Start time: {{ location.start_time }}</p>
+                    <p>End time: {{ location.end_time  }}</p>
+                    <p>Day: {{ location.day }}</p>
                     <div class="btn-group">
-                        <a style="background-color: #500000;" class="btn my-btn" href="{% url 'website:truck-menuitem-update' pk=menu_item.id %}" role="button">Edit Menu Item</a>
-                        <a style="background-color: #500000;" class="btn my-btn" href="{% url 'website:truck-menuitem-delete' pk=menu_item.id %}" role="button">Delete Menu Item</a>
+                        <a style="background-color: #500000;" class="btn my-btn" href="{% url 'website:truck-location-update' pk=location.id %}" role="button">Edit location</a>
+                        <a style="background-color: #500000;" class="btn my-btn" href="{% url 'website:truck-location-delete' pk=location.id %}" role="button">Delete location</a>
                     </div>
                 </div><!-- /.col-lg-4 -->
                 {% endif %}
 
             {% empty %}
-            <h2 class"text-center">No menu items stored for {{ truck.truck_name }}</h2>
+            <h2 class"text-center">No locations stored for {{ truck.truck_name }}</h2>
             {% endfor %}
         </div>
     </div>

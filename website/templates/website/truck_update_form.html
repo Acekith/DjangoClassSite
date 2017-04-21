@@ -18,6 +18,12 @@
             <a class="list-group-item account-password" href="{% url "website:truck-menuitem-list" pk=truck.id %}">
                 {% trans "Edit Menu" %}
             </a>
+            <a class="list-group-item account-password" href="{% url "website:truck-location-list" pk=truck.id %}">
+                {% trans "Edit Locations" %}
+            </a>
+            <a class="list-group-item account-password" href="{% url "website:truck-hours-list" pk=truck.id %}">
+                {% trans "Edit Truck Hours" %}
+            </a>
             <a class="list-group-item account-delete" href="{% url "website:truck-delete" pk=truck.id %}">
                 {% trans "Delete Truck" %}
             </a>

@@ -9,12 +9,13 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
 from django.views.generic.edit import UpdateView
 from django.views.generic.edit import DeleteView
-
+from django.core.files.base import ContentFile
+from django.core.files.storage import default_storage
 from .models import Truck
 from .models import Menu_item
 from .models import Location
 from .models import Hours
-
+import uuid
 # Create your views here.
 
 
@@ -46,6 +47,23 @@ class TruckCreate(CreateView):
     'short_description',
     'description',]
 
+#    def post(self, request, *args, **kwargs):
+#        if form.is_valid():
+#            newPic = Pic(imgfile = request.FILES['imgfile'])
+#            newPic.save()
+
+
+
+    def post(self, request, *args, **kwargs):
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        if form.is_valid():
+            print request, args, kwargs, request.META, request.FILES
+            newPic = request.FILES['truck_picture']
+            default_storage.save(uuid.uuid4().hex, ContentFile(newpic.read()))
+        else:
+            return self.form_invalid(form)
+
 class TruckUpdate(UpdateView):
     model = Truck
     fields = [
@@ -60,7 +78,7 @@ class TruckDelete(DeleteView):
     model = Truck
     success_url = reverse_lazy('truck-list')
 
-# CRUD for menu items
+#****************** CRUD for menu items************************
 
 class MenuItemListView(ListView):
     model = Menu_item
@@ -85,7 +103,7 @@ class MenuItemUpdate(UpdateView):
         # Call the base implementation first to get a context
         context = super(MenuItemUpdate, self).get_context_data(**kwargs)
         # Add in the publisher
-        context["truck"]=Truck.objects.get(pk=self.kwargs["pk"])
+        # context["truck"]=Truck.objects.get(pk=self.kwargs["pk"])
         return context
 
 class MenuItemCreate(CreateView):
@@ -109,32 +127,15 @@ class MenuItemCreate(CreateView):
 
 class MenuItemDelete(DeleteView):
     model = Menu_item
-    def success_url(self):
-        return reverse('website:truck-menuitem-list', kwargs={'pk': self.object.truck.id})
+    def get_success_url(self, **kwargs):
+        return reverse('website:truck-menuitem-list', kwargs={'pk': self.truck_id})
 
-    def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        html = """
-               <html>
-                   <head>
-                       <script>window.onunload = refreshParent; function refreshParent() {
-                               window.opener.location.href=%s;
-                               }
-                       </script>
-                   </head>
-                   <body>
-                   <h1>object deleted successfully</h1>
-                   <button type="button" onclick="window.close()">OK</button>
-                   </body>
-               </html>
-               """ % reverse('website:truck-menuitem-list',
-                              kwargs={'pk': self.object.truck.id
-                                      }
-                              )
-        super(MenuItemDelete, self).post(request, *args, **kwargs)
-        return HttpResponse(html)
+    def delete(self, request, *args, **kwargs):
+        truck = self.get_object().truck
+        self.truck_id = truck.id
+        return super(MenuItemDelete, self).delete(request, *args, **kwargs)
 
-#CRUD for Locations
+#******************CRUD for Locations******************
 
 class LocationListView(ListView):
     model = Location
@@ -148,22 +149,57 @@ class LocationListView(ListView):
 
 class LocationItemUpdate(UpdateView):
     model = Location
-    #fields =
+    fields =[
+    'latitude',
+    'longitude',
+    'start_time',
+    'end_time',
+    'day',]
+
+    template_name_suffix = '_update_form'
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(LocationItemUpdate, self).get_context_data(**kwargs)
+        # Add in the publisher
+        context["truck"]=Truck.objects.get(pk=self.kwargs["pk"])
+        return context
 
 class LocationCreate(CreateView):
     model = Location
+    fields =[
+    'latitude',
+    'longitude',
+    'start_time',
+    'end_time',
+    'day',]
 
     def form_valid(self, form):
-        form.instance.truck = Truck.objects.get(pk=self.kwargs['truck_id'])
+        form.instance.truck = Truck.objects.get(pk=self.kwargs['pk_truck'])
         return super(LocationCreate, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(LocationCreate, self).get_context_data(**kwargs)
+        # Add in the publisher
+        context["truck"]=Truck.objects.get(pk=self.kwargs["pk_truck"])
+        return context
 
 class LocationDelete(DeleteView):
     model = Location
 
-#CRUD for Hours
+    def get_success_url(self, **kwargs):
+        return reverse('website:truck-location-list', kwargs={'pk': self.truck_id})
+
+    def delete(self, request, *args, **kwargs):
+        truck = self.get_object().truck
+        self.truck_id = truck.id
+        return super(LocationDelete, self).delete(request, *args, **kwargs)
+
+#************CRUD for Hours ****************
 
 class HoursListView(ListView):
-    model = Location
+    model = Hours
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
@@ -174,11 +210,44 @@ class HoursListView(ListView):
 
 class HoursItemUpdate(UpdateView):
     model = Hours
-    #fields =
+    fields =[
+    'monday',
+    'tuesday',
+    'wednesday',
+    'thursday',
+    'friday',
+    'saturday',
+    'sunday',]
+
+
+    template_name_suffix = '_update_form'
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(HoursItemUpdate, self).get_context_data(**kwargs)
+        # Add in the publisher
+        context["truck"]=Truck.objects.get(pk=self.kwargs["pk"])
+        return context
 
 class HoursCreate(CreateView):
     model = Hours
+    fields =[
+    'monday',
+    'tuesday',
+    'wednesday',
+    'thursday',
+    'friday',
+    'saturday',
+    'sunday',]
 
     def form_valid(self, form):
-        form.instance.truck = Truck.objects.get(pk=self.kwargs['truck_id'])
+        form.instance.truck = Truck.objects.get(pk=self.kwargs['pk_truck'])
         return super(HoursCreate, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(HoursCreate, self).get_context_data(**kwargs)
+        # Add in the publisher
+        context["truck"]=Truck.objects.get(pk=self.kwargs["pk_truck"])
+        return context
+

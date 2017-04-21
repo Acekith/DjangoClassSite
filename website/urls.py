@@ -21,8 +21,14 @@ urlpatterns = [
     url(r'^menuitems/(?P<pk>[0-9]+)/delete/$', views.MenuItemDelete.as_view(), name='truck-menuitem-delete'),
 
     url(r'^trucks/(?P<pk>[0-9]+)/Locations/$', views.LocationListView.as_view(), name='truck-location-list'),
-    url(r'^trucks/(?P<pk>[0-9]+)/Locations/create/$', views.LocationCreate.as_view(), name='truck-location-create'),
+    url(r'^trucks/(?P<pk_truck>[0-9]+)/Locations/create/$', views.LocationCreate.as_view(), name='truck-location-create'),
+    url(r'^locations/(?P<pk>[0-9]+)/update/$', views.LocationItemUpdate.as_view(), name='truck-location-update'),
+    url(r'^locations/(?P<pk>[0-9]+)/delete/$', views.LocationDelete.as_view(), name='truck-location-delete'),
     # ex/map/
+    url(r'^trucks/(?P<pk>[0-9]+)/hours/$', views.HoursListView.as_view(), name='truck-hours-list'),
+    url(r'^trucks/(?P<pk_truck>[0-9]+)/hours/create/$', views.HoursCreate.as_view(), name='truck-hours-create'),
+    url(r'^hours/(?P<pk>[0-9]+)/update/$', views.HoursItemUpdate.as_view(), name='truck-hours-update'),
+
     url(r'^map/$', views.map, name='map'),
     url(r'^contact/$', views.contact, name='contact'),
 

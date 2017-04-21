@@ -64,21 +64,28 @@ class Menu_item(models.Model):
 
 class Hours(models.Model):
     truck = models.OneToOneField(Truck, related_name='truckhours')
-    monday = models.CharField(max_length=256, blank=True, null=True)
-    tuesday = models.CharField(max_length=256, blank=True, null=True)
-    wednesday = models.CharField(max_length=256, blank=True, null=True)
-    thrusday = models.CharField(max_length=256, blank=True, null=True)
-    friday = models.CharField(max_length=256, blank=True, null=True)
-    saturday = models.CharField(max_length=256, blank=True, null=True)
-    sunday = models.CharField(max_length=256, blank=True, null=True)
+    monday = models.CharField(max_length=256, blank=True, null=True, help_text='256 character limit to express hours as you would like. We recommend something similar to 11am-5pm')
+    tuesday = models.CharField(max_length=256, blank=True, null=True, help_text='256 character limit to express hours as you would like. We recommend something similar to 11am-5pm')
+    wednesday = models.CharField(max_length=256, blank=True, null=True, help_text='256 character limit to express hours as you would like. We recommend something similar to 11am-5pm')
+    thursday = models.CharField(max_length=256, blank=True, null=True, help_text='256 character limit to express hours as you would like. We recommend something similar to 11am-5pm')
+    friday = models.CharField(max_length=256, blank=True, null=True, help_text='256 character limit to express hours as you would like. We recommend something similar to 11am-5pm')
+    saturday = models.CharField(max_length=256, blank=True, null=True, help_text='256 character limit to express hours as you would like. We recommend something similar to 11am-5pm')
+    sunday = models.CharField(max_length=256, blank=True, null=True, help_text='256 character limit to express hours as you would like. We recommend something similar to 11am-5pm')
+
+
+    def get_absolute_url(self):
+        return reverse_lazy('website:truck-hours-list', args=[self.truck.id])
 
 class Location(models.Model):
     truck = models.ForeignKey(Truck,related_name='trucklocation')
     latitude = models.CharField(max_length=256, blank=True, null=True)
     longitude = models.CharField(max_length=256, blank=True, null=True)
-    start_time = models.TimeField()
-    end_time = models.TimeField()
+    start_time = models.TimeField(help_text='Please use 24hr format: HH:MM:SS')
+    end_time = models.TimeField(help_text='Please use 24hr format: HH:MM:SS')
     day = models.IntegerField(choices=DAYS)
 
     def __str__(self):
         return "%s.%s" %(self.latitude, self.longitude)
+
+    def get_absolute_url(self):
+        return reverse_lazy('website:truck-location-list', args=[self.truck.id])
