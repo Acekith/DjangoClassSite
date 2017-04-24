@@ -106,27 +106,30 @@ def submit_order(request, pk):
     truckemail = truck.truck_owner.email
     useremail = user.email
     print items_ordered
-    message = "Thank you for your Order! \n"
-    message+= truck.truck_name
-    message+= "\n"
-    message+= "\n"
-    for item in items_ordered:
-        message+= item.item_name
-        message+= ":  $"
-        message+= str(item.item_price)
+    if len(items_ordered) > 0:
+        message = "Thank you for your Order! \n"
+        message+= truck.truck_name
         message+= "\n"
-    message+= "\n"
-    message+= "Your order will be ready soon!"
-    send_mail(
-        "Truckie's Trucks order",
-        message,
-        "Truckie's Trucks <truckbot@grayson.hx42.org>",
-        [
-            truckemail,
-            useremail,
-        ]
-    )
-    messages.add_message(request, messages.SUCCESS, 'Thank you! Your order has been recieved.')
+        message+= "\n"
+        for item in items_ordered:
+            message+= item.item_name
+            message+= ":  $"
+            message+= str(item.item_price)
+            message+= "\n"
+        message+= "\n"
+        message+= "Your order will be ready soon!"
+        send_mail(
+            "Truckie's Trucks order",
+            message,
+            "Truckie's Trucks <truckbot@grayson.hx42.org>",
+            [
+                truckemail,
+                useremail,
+            ]
+        )
+        messages.add_message(request, messages.SUCCESS, 'Thank you! Your order has been recieved.')
+    else:
+        messages.add_message(request, messages.SUCCESS, 'Please select an item before submitting your order.')
     return HttpResponseRedirect('/trucks/%s/' % truck.id)
     # return reverse('website:truck-detail', kwargs={'pk': truck.id})
 

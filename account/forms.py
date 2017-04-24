@@ -57,11 +57,11 @@ class SignupForm(forms.Form):
         qs = EmailAddress.objects.filter(email__iexact=value)
         if not qs.exists() or not settings.ACCOUNT_EMAIL_UNIQUE:
             return value
-        raise forms.ValidationError(_("Oops!! The email entered is already in use by a fellow member."))
+        raise forms.ValidationError(_("Oops! The emailID is already in use by another user."))
 
     def clean_username(self):
         if not alnum_re.search(self.cleaned_data["username"]):
-            raise forms.ValidationError(_("Oops! Usernames can only contain letters, numbers and underscores."))
+            raise forms.ValidationError(_("Oops! Usernames can only contain letters, numbers, and underscores."))
         User = get_user_model()
         lookup_kwargs = get_user_lookup_kwargs({
             "{username}__iexact": self.cleaned_data["username"]
@@ -69,7 +69,7 @@ class SignupForm(forms.Form):
         qs = User.objects.filter(**lookup_kwargs)
         if not qs.exists():
             return self.cleaned_data["username"]
-        raise forms.ValidationError(_("Oops sorry this username is already taken. Please choose another."))
+        raise forms.ValidationError(_("Oops! Sorry, this username is already taken. Please choose another."))
 
     def clean(self):
         if "password" in self.cleaned_data and "password_confirm" in self.cleaned_data:

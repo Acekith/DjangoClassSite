@@ -189,6 +189,9 @@ class SignupView(FormView):
         return user
 
     def create_account(self, form):
+        #print '********'
+        #print form.cleaned_data.get("account_type")
+        #print '********'
         return Account.create(request=self.request, user=self.created_user, usertype=form.cleaned_data.get("account_type"), create_email=False)
 
     def generate_username(self, form):
