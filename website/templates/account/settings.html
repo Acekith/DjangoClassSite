@@ -8,8 +8,8 @@
 {% block head_title %}{% trans "Account" %}{% endblock %}
 
 {% block body %}
-    <div class="row">
-        <div class="col-md-5">
+    <div style="margin-top: 2em"class="row">
+        <div class="col-md-6">
             <form method="POST" action="{% url "account_settings" %}">
                 <legend>{% trans "Account" %}</legend>
                 {% csrf_token %}

@@ -12,7 +12,11 @@ from django.views.generic.edit import DeleteView
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from django.conf import settings
-
+from django.contrib import messages
+from django.core.mail import send_mail
+#from collection.forms import ContactForm
+from django import forms
+from phonenumber_field.formfields import PhoneNumberField
 from .models import Truck
 from .models import Menu_item
 from .models import Location
@@ -26,8 +30,105 @@ import uuid
 def index(request):
     return render(request, 'website/index.html', {})
 
+def comingsoon(request):
+    return render(request, 'website/Coming_soon.html', {})
+
+class ContactForm(forms.Form):
+
+    fname = forms.CharField(
+        label="First Name",
+        max_length=64,
+        widget=forms.TextInput(),
+        required=True
+    )
+    lname = forms.CharField(
+        label="Last Name",
+        max_length=64,
+        widget=forms.TextInput(),
+        required=True
+    )
+    email = forms.EmailField(
+        label="Email",
+        widget=forms.EmailInput(),
+        required=True
+    )
+    phone = forms.RegexField(
+        regex=r'^\+?1?\d{9,15}$',
+        error_message = "Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.",
+        label="Telephone Number",
+        max_length=64,
+        widget=forms.TextInput(),
+        required=True
+    )
+    message = forms.CharField(
+        label="message",
+        widget=forms.Textarea(),
+        required=True
+    )
+
 def contact(request):
-    return render(request, 'website/Contact_Us.html', {})
+    #messages.add_message(request, messages.INFO, 'Hello world.')
+    #messages.add_message(request, messages.SUCCESS, 'Hello world.')
+    #messages.add_message(request, messages.WARNING, 'Hello world.')
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            # do the email
+            send_mail(
+                "Truckie's Trucks feedback",
+                form.cleaned_data["message"],
+                "Truckie's Trucks <truckbot@grayson.hx42.org>",
+                [
+                    "gmiller@tamu.edu"
+                ]
+            )
+            print form
+            messages.add_message(request, messages.SUCCESS, 'Thank you for your feedback!')
+            return HttpResponseRedirect('/')
+        else:
+            return render(request, 'website/contact.html', {
+                'form': form,
+            })
+    else:
+        form = ContactForm()
+
+    return render(request, 'website/contact.html', {
+        'form': form,
+    })
+
+def submit_order(request, pk):
+    form_items = request.POST.keys()
+    form_items.remove('csrfmiddlewaretoken')
+    form_itmes = [int(x) for x in form_items]
+    items_ordered = Menu_item.objects.all().filter(id__in=form_items)
+    truck = Truck.objects.get(id=pk)
+    user = request.user
+    truckemail = truck.truck_owner.email
+    useremail = user.email
+    print items_ordered
+    message = "Thank you for your Order! \n"
+    message+= truck.truck_name
+    message+= "\n"
+    message+= "\n"
+    for item in items_ordered:
+        message+= item.item_name
+        message+= ":  $"
+        message+= str(item.item_price)
+        message+= "\n"
+    message+= "\n"
+    message+= "Your order will be ready soon!"
+    send_mail(
+        "Truckie's Trucks order",
+        message,
+        "Truckie's Trucks <truckbot@grayson.hx42.org>",
+        [
+            truckemail,
+            useremail,
+        ]
+    )
+    messages.add_message(request, messages.SUCCESS, 'Thank you! Your order has been recieved.')
+    return HttpResponseRedirect('/trucks/%s/' % truck.id)
+    # return reverse('website:truck-detail', kwargs={'pk': truck.id})
 
 def map(request):
     trucks = Truck.objects.all()
@@ -47,6 +148,9 @@ class TruckCreate(CreateView):
     'truck_picture',
     'short_description',
     'description',]
+
+    def get_success_url(self):
+        return reverse_lazy('website:truck-update',args=(self.object.id,))
 
     def form_valid(self, form):
         self.object = form.save(commit=False)

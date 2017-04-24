@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'anymail',
 	'account',
+    'phonenumber_field',
 	'bootstrap3',
 ]
 
@@ -135,11 +136,12 @@ SITE_ID = 1
 SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_BROWSER_XSS_FILTER = True
 #SESSION_COOKIE_SECURE = True
-ACCOUNT_LOGIN_REDIRECT_URL = '/truck'
+ACCOUNT_LOGIN_REDIRECT_URL = '/trucks/'
 # CSRF_COOKIE_SECURE = True
 # ACCOUNT_SIGNUP_REDIRECT_URL = '/account/signup/'
 # ACCOUNT_LOGIN_REDIRECT_URL = '/account/login/'
 # ACCOUNT_LOGOUT_REDIRECT_URL = '/account/logout'
+ACCOUNT_SIGNUP_REDIRECT_URL = '/trucks/'
 
 ANYMAIL = {
     # (exact settings here depend on your ESP...)

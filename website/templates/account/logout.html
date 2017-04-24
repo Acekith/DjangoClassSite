@@ -7,13 +7,13 @@
 {% block body %}
 <div class="notmap">
     <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-6 col-md-offset-3">
             <form method="POST" action="{% url "account_logout" %}">
                 <legend>{% trans "Log out" %}</legend>
                 <fieldset>
                     {% csrf_token %}
                     <p>{% trans "Are you sure you want to log out?" %}</p>
-                    <button type="submit" class="btn my-btn">{% trans "Log out" %}</button>
+                    <button type="submit" class="btn my-btn" style="background-color: #500000">{% trans "Log out" %}</button>
                 </fieldset>
             </form>
         </div>

@@ -86,19 +86,28 @@
         <div class="row">
             <div class="col-sm-12">
                 <h2>{{ truck.truck_name }} Menu</h2>
+                <form method="POST" action="submit_order/">
+                     {% csrf_token %}
                 <div class="list-group">
                     {% for item in truck.menuitems.all %}
                       <a class="list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1" style="color: #500000">{{ item.item_name }}</h5>
+                            <h4 class="mb-1" style="color: #707373">{{ item.item_name }}</h4>
                         </div>
-                        <p class="mb-1">{{ item.item_description  }}</p>
+                        <p class="mb-1" style="color: #500000">{{ item.item_description  }}</p>
                         <small>${{ item.item_price }}</small>
+                        <div class="form-check">
+                              <label class="form-check-label">
+                                  <input class="form-check-input" type="checkbox" name="{{ item.id }}">  Order {{ item.item_name }}
+                            </label>
+                        </div>
                       </a>
                     {% empty %}
                         <h2 class"text-center">Content coming soon</h2>
                     {% endfor %}
                 </div>
+                    <button style="margin-bottom: 2em; background-color: #500000" class="btn my-btn" type="submit">Submit Order</button>
+                </form>
             </div>
         </div>
     </div><!-- /. container -->

@@ -189,7 +189,7 @@ class SignupView(FormView):
         return user
 
     def create_account(self, form):
-        return Account.create(request=self.request, user=self.created_user, create_email=False)
+        return Account.create(request=self.request, user=self.created_user, usertype=form.cleaned_data.get("account_type"), create_email=False)
 
     def generate_username(self, form):
         raise NotImplementedError(

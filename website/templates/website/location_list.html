@@ -21,16 +21,16 @@
         <div class="panel-heading"><strong>{% trans "Settings" %}</strong></div>
         <div class="list-group">
             <a class="list-group-item account-settings" href="{% url "website:truck-update" pk=truck.id %}">
-                {% trans "Edit Truck Information" %}
+                {% trans "Truck Information" %}
             </a>
             <a class="list-group-item account-password" href="{% url "website:truck-menuitem-list" pk=truck.id %}">
-                {% trans "Edit Menu" %}
+                {% trans "Menu" %}
             </a>
             <a class="list-group-item account-password" href="{% url "website:truck-location-list" pk=truck.id %}">
-                {% trans "Edit Locations" %}
+                {% trans "Locations" %}
             </a>
             <a class="list-group-item account-password" href="{% url "website:truck-hours-list" pk=truck.id %}">
-                {% trans "Edit Truck Hours" %}
+                {% trans "Truck Hours" %}
             </a>
             <a class="list-group-item account-delete" href="{% url "website:truck-delete" pk=truck.id %}">
                 {% trans "Delete Truck" %}

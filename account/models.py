@@ -19,7 +19,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.sites.models import Site
-
+from django.core.validators import RegexValidator
 import pytz
 
 from account import signals
@@ -31,7 +31,11 @@ from account.signals import signup_code_sent, signup_code_used
 
 from bootstrap_themes import list_themes
 
+USERTYPE = (
+        (0, 'Regular'),
+        (1, 'Owner'),
 
+)
 
 @python_2_unicode_compatible
 class Account(models.Model):
@@ -45,10 +49,10 @@ class Account(models.Model):
         default=settings.LANGUAGE_CODE
     )
     theme = models.CharField(max_length=255, default='default', choices=list_themes())
-
+    usertype = models.IntegerField(choices=USERTYPE, default='0', help_text="If you own a food truck please select 'Owner'")
     name = models.CharField(max_length=255, default='', help_text="The full name of the person")
-    phone_number = models.CharField(max_length=16, blank=True, help_text="A phone number which they will continue to be reachable at (i.e. not an office phone #)")
-
+    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
+    phone_number = models.CharField(max_length=16, blank=True, validators=[phone_regex], help_text="Please use format '+999999999'. Up to 15 digits allowed.")
 
 
     @classmethod

@@ -17,7 +17,7 @@ from account.conf import settings
 from account.hooks import hookset
 from account.models import EmailAddress
 from account.utils import get_user_lookup_kwargs
-
+from account.models import USERTYPE
 
 alnum_re = re.compile(r"^\w+$")
 
@@ -31,6 +31,9 @@ class SignupForm(forms.Form):
         required=True
     )
 
+    account_type = forms.ChoiceField(choices=USERTYPE,
+        label=_("Account type")
+    )
     password = forms.CharField(
         label=_("Password"),
         widget=forms.PasswordInput(render_value=False)
@@ -54,7 +57,19 @@ class SignupForm(forms.Form):
         qs = EmailAddress.objects.filter(email__iexact=value)
         if not qs.exists() or not settings.ACCOUNT_EMAIL_UNIQUE:
             return value
-        raise forms.ValidationError(_("A user is registered with this email address."))
+        raise forms.ValidationError(_("Oops!! The email entered is already in use by a fellow member."))
+
+    def clean_username(self):
+        if not alnum_re.search(self.cleaned_data["username"]):
+            raise forms.ValidationError(_("Oops! Usernames can only contain letters, numbers and underscores."))
+        User = get_user_model()
+        lookup_kwargs = get_user_lookup_kwargs({
+            "{username}__iexact": self.cleaned_data["username"]
+        })
+        qs = User.objects.filter(**lookup_kwargs)
+        if not qs.exists():
+            return self.cleaned_data["username"]
+        raise forms.ValidationError(_("Oops sorry this username is already taken. Please choose another."))
 
     def clean(self):
         if "password" in self.cleaned_data and "password_confirm" in self.cleaned_data:
