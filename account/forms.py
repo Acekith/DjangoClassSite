@@ -200,7 +200,15 @@ class PasswordResetTokenForm(forms.Form):
 class SettingsForm(forms.Form):
 
     name = forms.CharField(label=_("Name"), required=True, help_text="Full name. First-, any middle-, and last name(s).")
-    phone_number = forms.CharField(max_length=16, required=False, help_text="A phone number which you will continue to be reachable at (i.e. not an office phone #)")
+    #phone_number = forms.CharField(max_length=16, required=False, help_text="A phone number which you will continue to be reachable at (i.e. not an office phone #)")
+    phone_number = forms.RegexField(
+        regex=r'^\+?1?\d{9,15}$',
+        error_messages = {'invalid': ("Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")},
+        label="Telephone Number",
+        max_length=64,
+        widget=forms.TextInput(),
+        required=True
+    )
 
     email = forms.EmailField(label=_("Email"), required=True)
     timezone = forms.ChoiceField(

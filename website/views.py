@@ -153,7 +153,7 @@ class TruckCreate(CreateView):
     'description',]
 
     def get_success_url(self):
-        return reverse_lazy('website:truck-update',args=(self.object.id,))
+        return reverse_lazy('website:truck-update',args=(self.object.id))
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
@@ -182,22 +182,25 @@ class TruckUpdate(UpdateView):
     template_name_suffix = '_update_form'
 
     def form_valid(self, form):
-        self.object = form.save(commit=False)
-        self.object.truck_owner = self.request.user
-        self.object.save()
-        return super(TruckUpdate, self).form_valid(form)
+       self.object = form.save(commit=False)
+       self.object.truck_owner = self.request.user
+       self.object.save()
+       return super(TruckUpdate, self).form_valid(form)
 
     def post(self, request, *args, **kwargs):
         form_class = self.get_form_class()
         form = self.get_form(form_class)
+        self.object = self.get_object()
+
         if form.is_valid():
             #print request.FILES
             if 'truck_picture' in request.FILES:
                 newpic = request.FILES['truck_picture']
                 default_storage.save(uuid.uuid4().hex, ContentFile(newpic.read()))
-            return self.form_valid(form)
-        else:
-            return self.form_invalid(form)
+        return super(TruckUpdate, self).post(request, *args, **kwargs)
+            # return self.form_valid(form)
+        # else:
+            # return self.form_invalid(form)
 
 class TruckDelete(DeleteView):
     model = Truck
@@ -287,7 +290,8 @@ class LocationItemUpdate(UpdateView):
         # Call the base implementation first to get a context
         context = super(LocationItemUpdate, self).get_context_data(**kwargs)
         # Add in the publisher
-        context["truck"]=Truck.objects.get(pk=self.kwargs["pk"])
+        #print self.kwargs["pk"]
+        #context["truck"]=Truck.objects.get(pk=self.kwargs["pk"])
         return context
 
 class LocationCreate(CreateView):

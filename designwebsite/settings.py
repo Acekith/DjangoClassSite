@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 	'account',
     'phonenumber_field',
 	'bootstrap3',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -150,3 +151,8 @@ ANYMAIL = {
 }
 EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"  # or sendgrid.EmailBackend, or...
 DEFAULT_FROM_EMAIL = "truckiestrucks@grayson.hx42.org"  # if you don't already have this in settings
+GRAPH_MODELS = {
+  'all_applications': True,
+  'group_models': True,
+}
+
