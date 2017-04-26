@@ -145,6 +145,17 @@
 		font-size: 1.5em;
 		font-family: "Helvetica Neue",Helvetica,Arial,sans-serif !important;
 	}
+	@media screen and (max-width: 1000px) {
+        .navbar-default .navbar-nav>li>a {
+            color: white;
+            padding: 32px 15px 28px;
+            font-size: 1.2em;
+            min-height: 1.5em;
+        }
+        .navbar-fixed-bottom .navbar-collapse, .navbar-fixed-top .navbar-collapse, .navbar-static-top .navbar-collapse {
+            min-height:1.5em;
+        }
+    }
 	@media screen and (max-width: 500px) {
         .navbar-default .navbar-nav>li>a {
             color: white;
@@ -175,14 +186,6 @@
 			padding-bottom: 0.3em;
 		}
 	}
-	@media screen and (max-width: 1000px) {
-        .navbar-default .navbar-nav>li>a {
-            color: white;
-            padding: 32px 15px 28px;
-            font-size: 1.2em;
-            min-height: 1.5em;
-        }
-    }
         </style>
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
