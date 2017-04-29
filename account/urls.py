@@ -7,7 +7,7 @@ from account.views import ConfirmEmailView
 from account.views import ChangePasswordView, PasswordResetView, PasswordResetTokenView
 from account.views import SettingsView
 
-
+# urls for the pages related to all account pages
 urlpatterns = [
     url(r"^signup/$", SignupView.as_view(), name="account_signup"),
     url(r"^login/$", LoginView.as_view(), name="account_login"),

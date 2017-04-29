@@ -25,7 +25,7 @@
             {% block extra_head %}{% endblock %}
         {% endblock %}
 
-        <!-- Latest compiled and minified CSS -->
+        <!-- Latest compiled and minified CSS bootstrap 3-->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
         <!-- Optional theme -->
@@ -36,15 +36,15 @@
                 background: #500000;
             } 
             .test {
-		display:block;
+                display:block;
                 margin-top: 0.3em;
             } 
             .navbar-default .navbar-brand {
                 color: white;
             }
-		.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
-			color: white;
-		}
+            .navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
+                color: white;
+            }
             .navbar-default .navbar-nav>li>a {
                 color: white;
                 padding: 30px 15px;
@@ -88,7 +88,7 @@
             #jumbo1 {
                 padding-bottom: 0px;
                 margin-top: 0px;
-		margin-bottom: 0em;
+                margin-bottom: 0em;
             }
 
             /* from map.css */
@@ -105,87 +105,89 @@
                 /* Set the hr color */
                 color: #333; /* old IE */
                 background-color: #333; /* Modern Browsers */
-	    }
+            }
             #indextext {
                 font-weight: bold;
-		font-size: 1.5em;
+            font-size: 1.5em;
+                }
+            .my-btn {
+                @include button-variant(white; #500000; #500000);
+                color: white
             }
-	.my-btn {
-		@include button-variant(white; #500000; #500000);
-		color: white
-	}
-	.my-btn:hover, .my-btn:active{
-		background: #707373 !important;
-		color: white;
-	}
-	h1, h2, h3, h4, h5 {
-	font-family: Times, "Times New Roman", Palatino, Bookman, "New Century Schoolbook" !important;
-	}
-	p {
-	font-family: Arial, Helvetica, "Gill Sans", Lucidia, "Helvetica Narrow" !important;
-	}
-	#magnify {
-		width: 140px;
-		height: 140px;
-	}
-	#cart {
-		width: 140px;
-		height: 140px;
-	}
-	#truck {
-		width: 140px;
-		height: 140px;
-		margin: auto;
-	}
-	#navtitle {
-		color: white; 
-		vertical-align: middle; 
-		margin: 0;
-		display: inline-block; 
-		font-size: 1.5em;
-		font-family: "Helvetica Neue",Helvetica,Arial,sans-serif !important;
-	}
-	@media screen and (max-width: 1000px) {
-        .navbar-default .navbar-nav>li>a {
-            color: white;
-            padding: 32px 15px 28px;
-            font-size: 1.2em;
-            min-height: 1.5em;
-        }
-        .navbar-fixed-bottom .navbar-collapse, .navbar-fixed-top .navbar-collapse, .navbar-static-top .navbar-collapse {
-            min-height:1.5em;
-        }
-    }
-	@media screen and (max-width: 500px) {
-        .navbar-default .navbar-nav>li>a {
-            color: white;
-            padding: .5em;
-            font-size: 1.4em;
-            min-height: 1.5em;
-        }
-        .navbar-default .navbar-nav .open .dropdown-menu>li>a  {
-            color: white !important;
-        }
-		.notmap {
-			padding: 0px !important;
-		}
-		#magnify {
-			width: 105px !important;
-			height: 105px !important;
-		}
-		#cart {
-			width: 105px !important;
-			height: 105px !important;
-		}
-		#truck {
-			width: 105px !important;
-			height: 105px !important;
-			margin: auto !important;
-		}
-		#brandimage {
-			padding-bottom: 0.3em;
-		}
-	}
+            .my-btn:hover, .my-btn:active{
+                background: #707373 !important;
+                color: white;
+            }
+            h1, h2, h3, h4, h5 {
+            font-family: Times, "Times New Roman", Palatino, Bookman, "New Century Schoolbook" !important;
+            }
+            p {
+            font-family: Arial, Helvetica, "Gill Sans", Lucidia, "Helvetica Narrow" !important;
+            }
+            #magnify {
+                width: 140px;
+                height: 140px;
+            }
+            #cart {
+                width: 140px;
+                height: 140px;
+            }
+            #truck {
+                width: 140px;
+                height: 140px;
+                margin: auto;
+            }
+            #navtitle {
+                color: white; 
+                vertical-align: middle; 
+                margin: 0;
+                display: inline-block; 
+                font-size: 1.5em;
+                font-family: "Helvetica Neue",Helvetica,Arial,sans-serif !important;
+            }
+            <!-- media query for tablets and smaller desktop screens -->
+            @media screen and (max-width: 1000px) {
+                .navbar-default .navbar-nav>li>a {
+                    color: white;
+                    padding: 32px 15px 28px;
+                    font-size: 1.2em;
+                    min-height: 1.5em;
+                }
+                .navbar-fixed-bottom .navbar-collapse, .navbar-fixed-top .navbar-collapse, .navbar-static-top .navbar-collapse {
+                    min-height:1.5em;
+                }
+            }
+            <!-- media query for phones -->
+            @media screen and (max-width: 500px) {
+                .navbar-default .navbar-nav>li>a {
+                    color: white;
+                    padding: .5em;
+                    font-size: 1.4em;
+                    min-height: 1.5em;
+                }
+                .navbar-default .navbar-nav .open .dropdown-menu>li>a  {
+                    color: white !important;
+                }
+                .notmap {
+                    padding: 0px !important;
+                }
+                #magnify {
+                    width: 105px !important;
+                    height: 105px !important;
+                }
+                #cart {
+                    width: 105px !important;
+                    height: 105px !important;
+                }
+                #truck {
+                    width: 105px !important;
+                    height: 105px !important;
+                    margin: auto !important;
+                }
+                #brandimage {
+                    padding-bottom: 0.3em;
+                }
+            }
         </style>
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -198,6 +200,7 @@
         <div class="{% block wrapper_class %}navbar-wrapper{% endblock %}">
 
             {% block topbar_base %}
+            <!-- navbar starts here -->
                 <div class="container">
                     <nav class="navbar navbar-default navbar-fixed-top">
                         <div class="container">
@@ -237,9 +240,11 @@
                 </div>
             {% endblock %}
 
+            <!-- all other html templates are inserted after any code here -->
             {% block body_base %}
                 <section id="content_body">
                     <div class="container-fluid">
+                        <!-- this is where the messages to the user are displayed -->
                         {% if messages %}
                         <div class="messages">
                                 {% for message in messages %}

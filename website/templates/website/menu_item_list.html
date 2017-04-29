@@ -17,6 +17,7 @@
     </style>
 <div class="container content">
     <div class="panel panel-default col-lg-3" style="margin-top: 2em;">
+            <!-- truck settings panel  -->
         <div class="panel-heading"><strong>{% trans "Settings" %}</strong></div>
         <div class="list-group">
             <a class="list-group-item account-settings" href="{% url "website:truck-update" pk=truck.id %}">
@@ -47,6 +48,7 @@
         </div>
         <hr />
         <div class="row">
+            <!-- shows evert menu item for the truck -->
             {% for menu_item in object_list %}
                 {% if truck == menu_item.truck %}
                 <div class="col-lg-12 col-sm-12">

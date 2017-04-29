@@ -23,7 +23,7 @@ from account.mixins import LoginRequiredMixin
 from account.models import SignupCode, EmailAddress, EmailConfirmation, Account, AccountDeletion
 from account.utils import default_redirect, get_form_data
 
-
+# renders signup page
 class SignupView(FormView):
 
     template_name = "account/signup.html"
@@ -278,7 +278,7 @@ class SignupView(FormView):
         }
         return self.response_class(**response_kwargs)
 
-
+# renders the login page
 class LoginView(FormView):
 
     template_name = "account/login.html"
@@ -342,7 +342,7 @@ class LoginView(FormView):
         expiry = settings.ACCOUNT_REMEMBER_ME_EXPIRY if form.cleaned_data.get("remember") else 0
         self.request.session.set_expiry(expiry)
 
-
+# renders the logout view
 class LogoutView(TemplateResponseMixin, View):
 
     template_name = "account/logout.html"
@@ -377,7 +377,7 @@ class LogoutView(TemplateResponseMixin, View):
         kwargs.setdefault("redirect_field_name", self.get_redirect_field_name())
         return default_redirect(self.request, fallback_url, **kwargs)
 
-
+# renders confirmation of email page.
 class ConfirmEmailView(TemplateResponseMixin, View):
 
     http_method_names = ["get", "post"]
@@ -536,7 +536,7 @@ class ChangePasswordView(FormView):
         }
         hookset.send_password_change_email([user.email], ctx)
 
-
+#renders the password reset page
 class PasswordResetView(FormView):
 
     template_name = "account/password_reset.html"
@@ -559,6 +559,7 @@ class PasswordResetView(FormView):
         }
         return self.response_class(**response_kwargs)
 
+    # send user an email confirming reset
     def send_email(self, email):
         User = get_user_model()
         protocol = getattr(settings, "DEFAULT_HTTP_PROTOCOL", "http")
@@ -675,7 +676,7 @@ class PasswordResetTokenView(FormView):
         }
         hookset.send_password_change_email([user.email], ctx)
 
-
+# user settings view
 class SettingsView(LoginRequiredMixin, FormView):
 
     template_name = "account/settings.html"
@@ -770,7 +771,7 @@ class SettingsView(LoginRequiredMixin, FormView):
         kwargs.setdefault("redirect_field_name", self.get_redirect_field_name())
         return default_redirect(self.request, fallback_url, **kwargs)
 
-
+# renders delete account page for user
 class DeleteView(LogoutView):
 
     template_name = "account/delete.html"

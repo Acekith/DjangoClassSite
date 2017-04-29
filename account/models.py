@@ -37,6 +37,7 @@ USERTYPE = (
 
 )
 
+# user account model
 @python_2_unicode_compatible
 class Account(models.Model):
 
@@ -65,6 +66,7 @@ class Account(models.Model):
                 pass
         return AnonymousAccount(request)
 
+    # creates account instance
     @classmethod
     def create(cls, request=None, **kwargs):
         create_email = kwargs.pop("create_email", True)
@@ -120,7 +122,7 @@ def user_post_save(sender, **kwargs):
     if created and not disabled:
         Account.create(user=user)
 
-
+# we do not currently use this
 @python_2_unicode_compatible
 class AnonymousAccount(object):
 
@@ -135,7 +137,7 @@ class AnonymousAccount(object):
     def __str__(self):
         return "AnonymousAccount"
 
-
+# we do not currently use this
 @python_2_unicode_compatible
 class SignupCode(models.Model):
 
@@ -247,7 +249,7 @@ class SignupCode(models.Model):
         self.save()
         signup_code_sent.send(sender=SignupCode, signup_code=self)
 
-
+# we do not currently use this
 class SignupCodeResult(models.Model):
 
     signup_code = models.ForeignKey(SignupCode)
@@ -258,7 +260,7 @@ class SignupCodeResult(models.Model):
         super(SignupCodeResult, self).save(**kwargs)
         self.signup_code.calculate_use_count()
 
-
+# stores emails linked to users
 @python_2_unicode_compatible
 class EmailAddress(models.Model):
 
@@ -309,7 +311,7 @@ class EmailAddress(models.Model):
             if confirm:
                 self.send_confirmation()
 
-
+# stores confirmation email details
 @python_2_unicode_compatible
 class EmailConfirmation(models.Model):
 
@@ -366,7 +368,7 @@ class EmailConfirmation(models.Model):
         self.save()
         signals.email_confirmation_sent.send(sender=self.__class__, confirmation=self)
 
-
+# stores account deletion information
 class AccountDeletion(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL)
@@ -377,6 +379,7 @@ class AccountDeletion(models.Model):
     class Meta:
         verbose_name = _("account deletion")
         verbose_name_plural = _("account deletions")
+
 
     @classmethod
     def expunge(cls, hours_ago=None):

@@ -89,6 +89,7 @@
                 <form method="POST" action="submit_order/">
                      {% csrf_token %}
                 <div class="list-group">
+        <!-- creation of truck menu here  -->
                     {% for item in truck.menuitems.all %}
                       <a class="list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-between">
