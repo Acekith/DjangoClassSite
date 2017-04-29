@@ -24,7 +24,9 @@ from .models import Hours
 import uuid
 # Create your views here.
 
-
+#renders the 404 page
+def page_not_found_view(request):
+    return render(request, '404.html', {})
 
 # renders the index page
 def index(request):

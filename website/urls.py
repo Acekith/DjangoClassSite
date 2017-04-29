@@ -32,5 +32,6 @@ urlpatterns = [
     url(r'^map/$', views.map, name='map'),
     url(r'^contact/$', views.contact, name='contact'),
     url(r'^comingsoon/$', views.comingsoon, name='coming-soon'),
+	url(r'', views.page_not_found_view, name='404'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
